@@ -1,5 +1,4 @@
-
- OSX
+# OSX
 #
 .DS_Store
 
@@ -22,6 +21,8 @@ DerivedData
 *.ipa
 *.xcuserstate
 **/.xcode.env.local
+
+
 
 # Android/IntelliJ
 #
@@ -58,7 +59,7 @@ yarn-error.log
 *.jsbundle
 
 # Ruby / CocoaPods
-**/Pods/
+# **/Pods/  # Commented out to include Pods in repository
 /vendor/bundle/
 
 # Temporary files created by Metro to check the health of the file watcher
