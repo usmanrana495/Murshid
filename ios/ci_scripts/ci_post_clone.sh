@@ -13,4 +13,8 @@ echo "===== Running yarn install ====="
 yarn install
 echo "===== Running pod install ====="
 cd ios
+//print the current directory
+pwd
+//print the contents of the current directory
+ls -la
 pod install
