@@ -11,7 +11,7 @@ brew install yarn
 # Install dependencies
 echo "===== Running yarn install ====="
 yarn install
-echo "===== Running pod install ====="
+echo "===== Running pod install ======"
 cd ..
 echo "Current directory: $(pwd)"
 pod install
