@@ -12,8 +12,6 @@ brew install yarn
 echo "===== Running yarn install ====="
 yarn install
 echo "===== Running pod install ====="
-cd ios
-//print the current directory
+cd ..
 echo "Current directory: $(pwd)"
-echo "Contents of ios/Pods directory: $(ls -la ios/Pods)"
 pod install
