@@ -107,7 +107,6 @@
 			buildPhases = (
 				18322BE42E50864D003802B1 /* ShellScript */,
 				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
-				18322BE32E50836F003802B1 /* ShellScript */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
@@ -201,23 +200,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Murshid/Pods-Murshid-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		18322BE32E50836F003802B1 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n#!/bin/sh\nexport NODE_BINARY=node\ncd \"$SRCROOT/..\"\nyarn install --frozen-lockfile --production\n";
 		};
 		18322BE42E50864D003802B1 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
