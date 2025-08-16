@@ -14,7 +14,6 @@ yarn install
 echo "===== Running pod install ====="
 cd ios
 //print the current directory
-pwd
-//print the contents of the current directory
-ls -la
+echo "Current directory: $(pwd)"
+echo "Contents of ios/Pods directory: $(ls -la ios/Pods)"
 pod install
