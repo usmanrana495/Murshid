@@ -2,57 +2,46 @@
 set -e
 
 echo "=== Xcode Cloud Pre-build Script ==="
-echo "Current directory: $(pwd)"
 
-# Add Node.js to PATH (Xcode Cloud has Node.js installed but not in default PATH)
-export PATH="/usr/local/bin:$PATH"
-export PATH="/opt/homebrew/bin:$PATH"
-
-# Check if npm is available
-if ! command -v npm &> /dev/null; then
-    echo "npm not found in PATH, trying to locate Node.js..."
-    # Try common Node.js installation paths
-    if [ -f "/usr/local/bin/npm" ]; then
-        export PATH="/usr/local/bin:$PATH"
-    elif [ -f "/opt/homebrew/bin/npm" ]; then
-        export PATH="/opt/homebrew/bin:$PATH"
+# Install Homebrew if not present (Xcode Cloud should have it)
+if ! command -v brew &> /dev/null; then
+    echo "Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    
+    # Add Homebrew to PATH
+    if [[ $(uname -m) == "arm64" ]]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
     else
-        echo "❌ npm not found. Trying to install Node.js..."
-        # Install Node.js using nvm if available
-        if command -v curl &> /dev/null; then
-            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-            source ~/.nvm/nvm.sh
-            nvm install node
-            nvm use node
-        fi
+        eval "$(/usr/local/bin/brew shellenv)"
     fi
 fi
 
-# Navigate to project root (two levels up from ios/ci_scripts)
-cd "$CI_WORKSPACE"
-echo "Project root directory: $(pwd)"
-echo "Contents: $(ls -la)"
+# Install Node.js using Homebrew
+if ! command -v node &> /dev/null; then
+    echo "Installing Node.js via Homebrew..."
+    brew install node
+fi
 
 echo "Node.js version: $(node --version)"
 echo "npm version: $(npm --version)"
 
+# Navigate to project root
+cd "$CI_WORKSPACE"
+
 echo "Installing Node.js dependencies..."
 if [ -f "package-lock.json" ]; then
-    echo "Found package-lock.json, using npm ci"
     npm ci
 elif [ -f "yarn.lock" ]; then
-    echo "Found yarn.lock, installing yarn"
     npm install -g yarn
     yarn install --frozen-lockfile
 else
-    echo "No lock file found, using npm install"
     npm install
 fi
 
-echo "Node.js dependencies installed successfully"
-
-echo "Installing CocoaPods dependencies..."
+echo "Installing CocoaPods..."
 cd ios
+rm -rf Pods
+rm -f Podfile.lock
 pod install
 
-echo "=== Pre-build script completed successfully ==="
+echo "=== Setup completed successfully ===="
